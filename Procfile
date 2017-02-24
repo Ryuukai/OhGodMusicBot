@@ -1,1 +1,1 @@
-bot: node start
+bot: node server.js
