@@ -95,27 +95,25 @@ client.on('message', msg => {
 	if (commands.hasOwnProperty(msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0])) commands[msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0]](msg);
 	const clean = text => {
 		if (typeof(text) === 'string')
-		return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
+			return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
 		else
 		return text;
 	};
-	client.on('message', message => {
-		const args = message.content.split(' ').slice(1);
+	const args = msg.content.split(' ').slice(1);
 
-		if (message.content.startsWith(';' + 'eval')) {
-			if(message.author.id !== '110076057167618048') return;
-			try {
-				const code = args.join(' ');
-				let evaled = eval(code);
+	if (msg.content.startsWith(tokens.prefix + 'eval')) {
+		if(msg.author.id !== '110076057167618048') return;
+		try {
+			const code = args.join(' ');
+			let evaled = eval(code);
 
-				if (typeof evaled !== 'string')
-					evaled = require('util').inspect(evaled);
+			if (typeof evaled !== 'string')
+				evaled = require('util').inspect(evaled);
 
-				message.channel.send(clean(evaled), {code:'xl'});
-			} catch (err) {
-				message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-			}
+			msg.channel.send(clean(evaled), {code:'xl'});
+		} catch (err) {
+			msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
 		}
-	});
+	}
 });
 client.login(tokens.d_token);
