@@ -102,7 +102,7 @@ client.on('message', msg => {
 	client.on('message', message => {
 		const args = message.content.split(' ').slice(1);
 
-		if (message.content.startsWith('pls ' + 'eval')) {
+		if (message.content.startsWith(';' + 'eval')) {
 			if(message.author.id !== '110076057167618048') return;
 			try {
 				const code = args.join(' ');
