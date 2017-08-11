@@ -1,1 +1,1 @@
-bot: node server.js
+bot: node --harmony server.js
